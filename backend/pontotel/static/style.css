@@ -5,7 +5,7 @@ html {
 }
 
 body {
-  max-width: 960px;
+  max-width: 600px;
   margin: 0 auto;
   background: white;
 }
@@ -76,27 +76,27 @@ nav ul li a, nav ul li span, header .action {
   border: 1px solid #377ba8;
 }
 
-.post>header {
+.user>header {
   display: flex;
   align-items: flex-end;
   font-size: 0.85em;
 }
 
-.post>header>div:first-of-type {
+.user>header>div:first-of-type {
   flex: auto;
 }
 
-.post>header h1 {
+.user>header h1 {
   font-size: 1.5em;
   margin-bottom: 0;
 }
 
-.post .about {
+.user .about {
   color: slategray;
   font-style: italic;
 }
 
-.post .body {
+.user .body {
   white-space: pre-line;
 }
 

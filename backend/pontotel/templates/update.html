@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Editar usuário de email "{{ user['email'] }}"{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <p>Campos com * são obrigatórios.</p>
+  <form method="post">
+    <label for="name">Nome</label>
+    <input 
+      name="name" 
+      id="name" 
+      value="{{ request.form['name'] or user['name'] }}" 
+      required
+    >
+
+    <label for="country">País</label>
+    <input 
+      name="country" 
+      id="country" 
+      value="{{ request.form['country'] or user['country'] }}" 
+      required
+    >
+
+    <label for="federal_state">Estado</label>
+    <input 
+      name="federal_state" 
+      id="federal_state" 
+      value="{{ request.form['federal_state'] or user['federal_state'] }}" 
+      required
+    >
+
+    <label for="city">Cidade</label>
+    <input 
+      name="city" 
+      id="city" 
+      value="{{ request.form['city'] or user['city'] }}" 
+      required    
+    >
+
+    <label for="cep">CEP</label>
+    <input 
+      name="cep" 
+      id="cep" 
+      value="{{ request.form['cep'] or user['cep'] }}" 
+      required
+    >
+
+    <label for="street">Rua</label>
+    <input 
+      name="street" 
+      id="street" 
+      value="{{ request.form['street'] or user['street'] }}" 
+      required
+    >
+
+    <label for="residential_number">Número</label>
+    <input 
+      name="residential_number" 
+      id="residential_number" 
+      value="{{ request.form['residential_number'] or user['residential_number'] }}" 
+      required
+    >
+
+    <label for="aditional_address_info">Complemento</label>
+    <input 
+      name="aditional_address_info" 
+      id="aditional_address_info"
+      value="{{ request.form['aditional_address_info'] or user['aditional_address_info'] }}" 
+    >
+
+    <label for="cpf">CPF</label>
+    <input 
+      name="cpf" 
+      id="cpf" 
+      value="{{ request.form['cpf'] or user['cpf'] }}" 
+      required
+    >
+
+    <label for="pis">PIS</label>
+    <input 
+      name="pis" 
+      id="pis" 
+      value="{{ request.form['pis'] or user['pis'] }}" 
+      required
+    >
+    
+    <input type="submit" value="Salvar">
+  </form>
+
+  <hr>
+
+  <form action="{{ url_for('profile.delete', id=user['id']) }}" method="post">
+    <input 
+      class="danger" 
+      type="submit" 
+      value="Deletar Usuário" 
+      onclick="return confirm('Tem certeza que deseja excluir seus dados? Isso irá te deslogar da plataforma.');"
+    >
+  </form>
+{% endblock %}
