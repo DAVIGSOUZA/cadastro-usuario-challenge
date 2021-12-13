@@ -71,3 +71,14 @@ def update():
             return redirect(url_for('profile.index'))
     
     return render_template('update.html', user=user)
+
+
+@bp.route('/delete', methods=('POST',))
+@login_required
+def delete():
+    user_id = session.get('user_id')
+    db = get_db()
+    db.execute('DELETE FROM user WHERE id = ?', (user_id,))
+    db.commit()
+    session.clear()
+    return redirect(url_for('auth.login'))

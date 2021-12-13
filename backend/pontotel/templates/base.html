@@ -5,7 +5,7 @@
   <h1>PontoTel</h1>
   <ul>
     {% if g.user %}
-      <li><span>Olá {{ g.user['username'] }}</span>
+      <li><span>Olá {{ g.user['name'] }}</span>
       <li><a href="{{ url_for('auth.logout') }}">Sair</a>
     {% else %}
       <li><span>Olá visitante</span>

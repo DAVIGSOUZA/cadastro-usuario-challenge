@@ -71,9 +71,9 @@ def login():
         ).fetchone()
 
         if user is None:
-            error = "Usuário ou senha incorreto."
+            error = "Usuário e/ou senha incorreto."
         elif not check_password_hash(user['password'], password):
-            error = "Usuário ou senha incorreto."
+            error = "Usuário e/ou senha incorreto."
         
         if error is None:
             session.clear()

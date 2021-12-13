@@ -7,7 +7,7 @@
 {% block content %}
   <p>Campos com * são obrigatórios.</p>
   <form method="post">
-    <label for="name">Nome</label>
+    <label for="name">Nome*</label>
     <input 
       name="name" 
       id="name" 
@@ -15,7 +15,7 @@
       required
     >
 
-    <label for="country">País</label>
+    <label for="country">País*</label>
     <input 
       name="country" 
       id="country" 
@@ -23,7 +23,7 @@
       required
     >
 
-    <label for="federal_state">Estado</label>
+    <label for="federal_state">Estado*</label>
     <input 
       name="federal_state" 
       id="federal_state" 
@@ -31,7 +31,7 @@
       required
     >
 
-    <label for="city">Cidade</label>
+    <label for="city">Cidade*</label>
     <input 
       name="city" 
       id="city" 
@@ -39,7 +39,7 @@
       required    
     >
 
-    <label for="cep">CEP</label>
+    <label for="cep">CEP*</label>
     <input 
       name="cep" 
       id="cep" 
@@ -47,7 +47,7 @@
       required
     >
 
-    <label for="street">Rua</label>
+    <label for="street">Rua*</label>
     <input 
       name="street" 
       id="street" 
@@ -55,7 +55,7 @@
       required
     >
 
-    <label for="residential_number">Número</label>
+    <label for="residential_number">Número*</label>
     <input 
       name="residential_number" 
       id="residential_number" 
@@ -70,7 +70,7 @@
       value="{{ request.form['aditional_address_info'] or user['aditional_address_info'] }}" 
     >
 
-    <label for="cpf">CPF</label>
+    <label for="cpf">CPF*</label>
     <input 
       name="cpf" 
       id="cpf" 
@@ -78,7 +78,7 @@
       required
     >
 
-    <label for="pis">PIS</label>
+    <label for="pis">PIS*</label>
     <input 
       name="pis" 
       id="pis" 
