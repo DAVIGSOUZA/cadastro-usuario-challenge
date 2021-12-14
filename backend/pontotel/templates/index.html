@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Perfil{% endblock %}</h1>
+  {% if g.user %}
+    <a class="action" href="{{ url_for('profile.update', id=user['id']) }}">Editar</a>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+    <section class="user">
+      <header>
+        <div>
+          <h1>{{ user['name'] }}</h1>
+        </div>
+      </header>
+      <div>
+        <h2> Informações pessoais </h2>
+        <p class="body">Email: {{ user['email'] }}</p>
+        <p class="body">CPF: {{ user['cpf'] }}</p>
+        <p class="body">PIS: {{ user['PIS'] }}</p>
+      </div>
+      <div>
+        <h2> Endereço</h2>
+        <p class="body">País: {{ user['country'] }}</p>
+        <p class="body">Estado: {{ user['federal_state'] }}</p>
+        <p class="body">Cidade: {{ user['city'] }}</p>
+        <p class="body">CEP: {{ user['cep'] }}</p>
+        <p class="body">Rua: {{ user['street'] }}</p>
+        <p class="body">Número: {{ user['residential_number'] }}</p>
+        <p class="body">Complemento: {{ user['aditional_address_info'] }}</p>
+      </div>
+    </section>
+{% endblock %}
