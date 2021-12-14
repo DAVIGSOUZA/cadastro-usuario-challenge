@@ -25,10 +25,6 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    # @app.route('/')
-    # def home():
-    #     return render_template('index.html')
-
     from . import db
     db.init_app(app)
 
