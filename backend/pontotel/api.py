@@ -1,5 +1,4 @@
-import sqlite3
-from flask import json, request, jsonify, Blueprint, make_response
+from flask import request, jsonify, Blueprint, make_response
 from werkzeug.security import check_password_hash, generate_password_hash
 import jwt
 import os
@@ -37,7 +36,7 @@ def token_required(f):
     return decorated
 
 
-# route for login user
+# login user
 @bp.route('/login', methods=['POST'])
 def api_login():
     auth = request.json
@@ -64,7 +63,7 @@ def api_login():
     return make_response(jsonify({'message': response}), 401)
 
 
-# route for register new user
+# register new user
 @bp.route('/register', methods=['POST'])
 def api_register():
     data = request.json
@@ -90,10 +89,10 @@ def api_register():
         not federal_state or not city or not cep or not street or
         not residential_number or not cpf or not pis
     ):
-        error = 'Preencha os campos requeridos.(*)'
+        error = 'Some required field is missing. Please verify'
         return make_response(jsonify({'message': error}), 422)
     elif not re.fullmatch(email_regex, email):
-        error = 'Informe um email válido.'
+        error = 'Invalid email.'
         return make_response(jsonify({'message': error}), 422)
 
     if error is None:
@@ -113,9 +112,10 @@ def api_register():
             return make_response(jsonify({'message': error}), 409)
 
 
+#  get logged user data
 @bp.route('/profile', methods=['GET'])
 @token_required
-def get_user_data(user):
+def api_get_user(user):
     db = get_db()
     
     db.row_factory = dict_factory
@@ -129,6 +129,52 @@ def get_user_data(user):
     return jsonify(user_data)
 
 
-# api_update_user
+# update logged user data
+@bp.route('/profile', methods=['POST'])
+@token_required
+def api_update_user(user):
+    data = request.json
+    name = data['name']
+    country = data['country']
+    federal_state = data['federal_state']
+    city = data['city']
+    cep = data['cep']
+    street = data['street']
+    residential_number = data['residential_number']
+    aditional_address_info = data['aditional_address_info']
+    cpf = data['cpf']
+    pis = data['pis']
 
-# api_delete_user
+    error = None
+
+    if (
+        not name or not country or not federal_state or not city or
+        not cep or not street or not residential_number or not cpf or
+        not pis
+    ):
+        error = 'Some required field is missing. Please verify'
+        return make_response(jsonify({'message': error}), 422)
+
+    if error is None:
+        db = get_db()
+        db.execute(
+            'UPDATE user SET name = ?, country = ?, federal_state = ?, city = ?, cep = ?, street = ?, residential_number = ?, aditional_address_info = ?, cep = ?, pis = ?'
+            'where email = ?',
+            (name, country, federal_state, city, cep, street,
+                residential_number, aditional_address_info, cpf, pis, user['email'])
+        ).fetchone()
+        db.commit()
+
+        return make_response(jsonify({'message': 'User updated.'}), 200)
+
+
+# delete logged user
+@bp.route('/profile', methods=['DELETE'])
+@token_required
+def api_delete_user(user):
+    db = get_db()
+    db.execute('DELETE FROM user WHERE email = ?', (user['email'],))
+    db.commit()
+
+    return make_response(jsonify({'message': 'User deleted.'}), 200)
+

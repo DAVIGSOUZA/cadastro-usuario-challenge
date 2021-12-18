@@ -15,10 +15,10 @@ def get_user(id):
 
     if user is None:
         abort(404, 'Usuário não existe.')
-    
+
     if user['id'] != g.user['id']:
         abort(403)
-    
+
     return user
 
 
@@ -36,7 +36,7 @@ def index():
 def update():
     user_id = session.get('user_id')
     user = get_user(user_id)
-   
+
     if request.method == 'POST':
         name = request.form['name']
         country = request.form['country']
@@ -51,13 +51,13 @@ def update():
 
         error = None
 
-        if  (
-                not name or not country or not federal_state or not city or 
-                not cep or not street or not residential_number or not cpf or 
-                not pis
-            ):
+        if (
+            not name or not country or not federal_state or not city or
+            not cep or not street or not residential_number or not cpf or
+            not pis
+        ):
             error = 'Preencha os campos requeridos.(*)'
-        
+
         if error is not None:
             flash(error)
         else:
@@ -65,11 +65,12 @@ def update():
             db.execute(
                 'UPDATE user SET name = ?, country = ?, federal_state = ?, city = ?, cep = ?, street = ?, residential_number = ?, aditional_address_info = ?, cep = ?, pis = ?'
                 'where id = ?',
-                (name, country, federal_state, city, cep, street, residential_number, aditional_address_info, cpf, pis, user_id)
+                (name, country, federal_state, city, cep, street,
+                 residential_number, aditional_address_info, cpf, pis, user_id)
             ).fetchone()
             db.commit()
             return redirect(url_for('profile.index'))
-    
+
     return render_template('update.html', user=user)
 
 
