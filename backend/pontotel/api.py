@@ -124,7 +124,7 @@ def api_get_user(user):
         'SELECT * FROM user WHERE email = ?', (user['email'],)
     ).fetchone()
 
-    print(user_data)
+    del user_data['password']
 
     return jsonify(user_data)
 
