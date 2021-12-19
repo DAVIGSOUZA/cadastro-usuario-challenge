@@ -1,12 +1,13 @@
 import os
 
 from flask import Flask
-from flask.templating import render_template
+from flask_cors import CORS
 
 
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
+    CORS(app)
     app.config.from_mapping(
         SECRET_KEY='dev',
         DATABASE=os.path.join(app.instance_path, 'pontotel.sqlite'),
@@ -25,10 +26,6 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    # @app.route('/')
-    # def home():
-    #     return render_template('index.html')
-
     from . import db
     db.init_app(app)
 
@@ -38,5 +35,8 @@ def create_app(test_config=None):
     from . import profile
     app.register_blueprint(profile.bp)
     app.add_url_rule('/', endpoint='index')
+
+    from . import api
+    app.register_blueprint(api.bp, url_prefix='/api/v1')
 
     return app

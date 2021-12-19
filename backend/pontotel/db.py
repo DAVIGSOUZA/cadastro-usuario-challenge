@@ -1,8 +1,10 @@
+import os
 import sqlite3
-
 import click
 from flask import current_app, g
 from flask.cli import with_appcontext
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 
 
 def get_db():
@@ -39,5 +41,8 @@ def init_db_command():
 
 
 def init_app(app):
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI')
+    db = SQLAlchemy(app)
+    migrate = Migrate(app, db)
     app.teardown_appcontext(close_db)
     app.cli.add_command(init_db_command)
