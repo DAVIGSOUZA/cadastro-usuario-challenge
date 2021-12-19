@@ -1,0 +1,36 @@
+version: "3.9"
+
+networks:
+  postgres:
+    driver: bridge
+
+services:
+  web-api:
+    build: .:/backend
+    command: ["./backend/run_web.sh"]
+    volumes:
+      - .:/app
+    ports:
+      - "5000:5000"
+    restart: always
+
+  web-front:
+    build: .:/frontend
+    command: ["./frontend/run_web.sh"]
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"
+    restart: always
+
+  db-postgres:
+    image: postgres
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123456
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres
