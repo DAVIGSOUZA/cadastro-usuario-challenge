@@ -1,5 +1,5 @@
 <template>
-  <header class="header mt-2 mb-3 px-2 py-1">
+  <header class="header mt-md-3 mb-3 px-2 py-1">
     <div>
       <b-nav class="justify-content-between align-items-center">
         <h1>Pontotel</h1>
