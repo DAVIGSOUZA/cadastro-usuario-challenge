@@ -104,7 +104,7 @@ def api_register():
             )
             db.commit()
 
-            return make_response('User registered.', 201)
+            return make_response(jsonify({'message': 'User registered.'}), 201)
 
         except db.IntegrityError:
             error = f"User {email} already exists."
