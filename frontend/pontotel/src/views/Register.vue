@@ -1,9 +1,10 @@
 <template>
   <div class="p-3">
-    <h2>register</h2>
+    <h2 v-if="user.name">Editar Cadastro</h2>
+    <h2 v-else>Cadastre-se</h2>
     <hr>
     <p>Campos com * são obrigatórios.</p>
-    <form method="post">
+    <form method="post" class="d-flex flex-column">
       <label for="email">Email*</label>
       <input type="email" name="email" id="email" required />
       <label for="password">Senha*</label>
@@ -29,13 +30,23 @@
       <label for="pis">PIS*</label>
       <input name="pis" id="pis" required />
 
-      <input type="submit" value="Cadastrar" />
+      <input type="submit" value="Cadastrar" class="mt-3"/>
     </form>
   </div>
 </template>
 
 <script>
-export default {};
+// import axios from 'axios'
+// import { BASE_URL } from "../utils"
+
+export default {
+  name: 'Register',
+  data() {
+    return {
+      user: {}
+    }
+  },
+};
 </script>
 
 <style>
