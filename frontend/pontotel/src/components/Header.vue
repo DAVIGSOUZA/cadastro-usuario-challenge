@@ -3,7 +3,17 @@
     <div>
       <b-nav class="justify-content-between align-items-center">
         <h1>Pontotel</h1>
-        <div class="d-flex align-items-center">
+
+        <div v-if="userName" class="d-flex align-items-center">
+          <p class="m-0">Olá {{userName}}</p>
+          <b-nav-item active>
+            <router-link :to="{ name: 'Login' }">
+              <span> Logout </span>
+            </router-link>
+          </b-nav-item>
+        </div>
+
+        <div v-else class="d-flex align-items-center">
           <p class="m-0">Olá visitante</p>
           <b-nav-item>
             <router-link :to="{ name: 'Register' }">
@@ -16,14 +26,28 @@
             </router-link>
           </b-nav-item>
         </div>
+
       </b-nav>
     </div>
   </header>
 </template>
 
 <script>
+import axios from "axios";
+import { BASE_URL } from "../utils";
+
 export default {
-  name: 'Header'
+  name: 'Header',
+  data() {
+    return {
+      userName: ''
+    }
+  },
+  beforeMount() {
+    axios.get(`${BASE_URL}/profile`, {headers: {'x-access-token': localStorage.getItem('token')}})
+      .then((res) => this.userName = res.data.name)
+      .catch((err) => console.log(err))
+  }
 }
 </script>
 

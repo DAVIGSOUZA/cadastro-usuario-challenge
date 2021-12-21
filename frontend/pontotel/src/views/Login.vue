@@ -55,7 +55,7 @@ export default {
         .then(res => {
           this.error = ''
           localStorage.setItem('token', res.data.token)
-          this.$router.push('Home')
+          this.$router.push('/')
         })
         .catch(() => this.error = "Erro: verifique usuário e senha ou cadastre-se")
     }
