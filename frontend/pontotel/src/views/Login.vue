@@ -46,7 +46,7 @@ export default {
     }
   },
   methods: {
-    login: function () {
+    login() {
       const body = {
         email: this.email,
         password: this.password

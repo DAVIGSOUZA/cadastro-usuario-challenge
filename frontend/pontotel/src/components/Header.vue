@@ -6,10 +6,13 @@
 
         <div v-if="userName" class="d-flex align-items-center">
           <p class="m-0">Olá {{userName}}</p>
-          <b-nav-item active>
-            <router-link :to="{ name: 'Login' }">
-              <span> Logout </span>
+          <b-nav-item>
+            <router-link :to="{ name: 'Home' }">
+              <span> Perfil </span>
             </router-link>
+          </b-nav-item>
+          <b-nav-item active @click="logout">
+              <span> Logout </span>
           </b-nav-item>
         </div>
 
@@ -43,11 +46,23 @@ export default {
       userName: ''
     }
   },
-  beforeMount() {
-    axios.get(`${BASE_URL}/profile`, {headers: {'x-access-token': localStorage.getItem('token')}})
-      .then((res) => this.userName = res.data.name)
-      .catch((err) => console.log(err))
+  watch: {
+    $route () {
+      if (localStorage.token) {
+        axios.get(`${BASE_URL}/profile`, {headers: {'x-access-token': localStorage.getItem('token')}})
+          .then((res) => this.userName = res.data.name)
+          .catch(() => this.userName = '')
+      }
+    }
+  },
+  methods: {
+    logout() {
+      localStorage.clear()
+      this.userName = ''
+      this.$router.push('/login')
+    }
   }
+  
 }
 </script>
 

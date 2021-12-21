@@ -1,7 +1,7 @@
 <template>
   <div class="p-3">
     <h2>{{ user.name }}</h2>
-    <router-link to="Register"> Editar</router-link>
+    <router-link to="Update"> Editar</router-link>
     <hr>
     <div>
       <h2>Informações pessoais</h2>
@@ -36,7 +36,10 @@ export default {
   beforeMount() {
     axios.get(`${BASE_URL}/profile`, {headers: {'x-access-token': localStorage.getItem('token')}})
       .then((res) => this.user = res.data)
-      .catch(() => this.$router.push('/login'))
+      .catch(() => {
+        localStorage.clear()
+        this.$router.push('/login')
+      })
   }
 };
 </script>
