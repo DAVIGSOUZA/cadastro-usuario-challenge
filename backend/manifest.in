@@ -1,0 +1,4 @@
+include pontotel/schema.sql
+graft pontotel/static
+graft pontotel/templates
+global-exclude *.pyc
