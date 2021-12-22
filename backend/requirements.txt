@@ -14,7 +14,6 @@ itsdangerous==2.0.1
 Jinja2==3.0.3
 Mako==1.1.6
 MarkupSafe==2.0.1
--e git+git@github.com:DAVIGSOUZA/cadastro-usuario-challenge.git@cc17a4f4e1bd0484c30fdf75fce14ef9dc7cd43f#egg=pontotel&subdirectory=backend
 psycopg2-binary==2.9.2
 pycodestyle==2.8.0
 PyJWT==1.4.2
