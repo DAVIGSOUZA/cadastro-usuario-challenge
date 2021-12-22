@@ -10,3 +10,5 @@ instance/
 htmlcov/
 
 build/
+dist/
+*.egg-info/
