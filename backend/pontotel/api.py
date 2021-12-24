@@ -44,8 +44,6 @@ def api_login():
     password = auth['password']
     response = 'Error: Try verify your username and password'
 
-    print(os.environ.get('SECRET_KEY'))
-
     if not auth or not email or not password:
         return make_response(jsonify({'message': response}), 401)
 
