@@ -1,7 +1,10 @@
 import os
-
 from flask import Flask
 from flask_cors import CORS
+from . import db
+from . import auth
+from . import profile
+from . import api
 
 
 def create_app(test_config=None):
@@ -26,17 +29,10 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    from . import db
     db.init_app(app)
-
-    from . import auth
     app.register_blueprint(auth.bp)
-
-    from . import profile
     app.register_blueprint(profile.bp)
     app.add_url_rule('/', endpoint='index')
-
-    from . import api
     app.register_blueprint(api.bp, url_prefix='/api/v1')
 
     return app
